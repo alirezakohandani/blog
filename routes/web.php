@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BlogController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +15,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('blogs.blog');
+});
+
+Route::group(['prefix' => 'blog'], function() {
+    Route::get('/', [BlogController::class, 'show'])->name('blog.show');
 });
