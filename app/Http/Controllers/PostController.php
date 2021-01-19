@@ -15,16 +15,14 @@ class PostController extends Controller
     public function show()
     {
         $posts = Post::all();
-
-        $address = 'http://localhost/laravel8-blog/'; 
-        return view('blogs.blog', compact('posts','address'));
+         
+        return view('blogs.blog', compact('posts'));
     }
 
     public function showDetails(Post $id)
     {
         $post = $id;
-        $address = 'http://localhost/laravel8-blog/'; 
 
-        return view('blogs.blog-details', compact('post', 'address'));
+        return view('blogs.blog-details', compact('post'));
     }
 }
