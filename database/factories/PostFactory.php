@@ -24,6 +24,17 @@ class PostFactory extends Factory
     {
         $post_type = ['article', 'podcast', 'video'];
         $key = array_rand($post_type);
+        // $user = User::select()->orderByRaw("RAND()")->first();
+
+        
+        // foreach($user->roles as $role)
+        // {
+        //     dd($role->role);
+        //     if ($role->role === 'author') {
+        //         dd('yes');
+        //     }
+        // }
+        
         return [
             'user_id' => User::select('id')->orderByRaw("RAND()")->first()->id,
             'title' => $this->faker->title(),
