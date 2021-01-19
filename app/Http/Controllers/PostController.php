@@ -8,6 +8,7 @@ use Faker\Provider\ar_JO\Address;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
 
+
 class PostController extends Controller
 {
     
@@ -17,5 +18,13 @@ class PostController extends Controller
 
         $address = 'http://localhost/laravel8-blog/'; 
         return view('blogs.blog', compact('posts','address'));
+    }
+
+    public function showDetails(Post $id)
+    {
+        $post = $id;
+        $address = 'http://localhost/laravel8-blog/'; 
+
+        return view('blogs.blog-details', compact('post', 'address'));
     }
 }

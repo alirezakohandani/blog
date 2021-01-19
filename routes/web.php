@@ -21,4 +21,5 @@ Route::get('/', function () {
 
 Route::group(['prefix' => 'post'], function() {
     Route::get('/', [PostController::class, 'show'])->name('post.show');
+    Route::get('details/{id}', [PostController::class, 'showDetails'])->name('post.show.details');
 });
