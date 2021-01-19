@@ -21,4 +21,12 @@ class Post extends Model
     {
         return $this->morphOne(Image::class, 'imageable');
     }
+
+    /**
+     * the categories that belongs to post
+     */
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class);
+    }
 }
