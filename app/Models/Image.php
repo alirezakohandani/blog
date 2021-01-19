@@ -13,8 +13,6 @@ class Image extends Model
 
     /**
      * Get the parent imageable model (user or post)
-     *
-     * @return void
      */
     public function imageable()
     {

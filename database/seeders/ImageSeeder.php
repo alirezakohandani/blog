@@ -13,6 +13,6 @@ class ImageSeeder extends Seeder
      */
     public function run()
     {
-        //
+        \App\Models\Image::factory(50)->create();
     }
 }
