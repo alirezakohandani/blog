@@ -18,15 +18,15 @@
             <div class="flex justify-between items-center"><span class="font-light text-gray-600">
                 {{ DateTime::createFromFormat('Y-m-d H:i:s', $post->created_at)->format('Y-M-d - H:i') }}
             </span><a href="#"
-                    class="px-2 py-1 bg-gray-600 text-gray-100 font-bold rounded hover:bg-gray-500">Laravel</a>
+                    class="px-2 py-1 bg-gray-600 text-gray-100 font-bold rounded hover:bg-gray-500">Laravel - {{ $post->post_type }}</a>
             </div>
             <div class="mt-2"><a href="#" class="text-2xl text-gray-700 font-bold hover:underline">{{ $post->title }}</a>
-                <p class="mt-2 text-gray-600">{{ $post->body }}</p>
+                <p class="mt-2 text-gray-600">{{ Str::limit($post->body, 120) }}</p>
             </div>
             <div class="flex justify-between items-center mt-4"><a href="#"
                     class="text-blue-500 hover:underline">Read more</a>
                 <div><a href="#" class="flex items-center"><img
-                            src="{{ $address . 'storage/app/file/default-post.png' }}"
+                            src="{{ $address . 'storage/app/file/' . App\Models\User::where('id', $post->user_id)->first()->image['url']}}"
                             alt="avatar" class="mx-4 w-10 h-10 object-cover rounded-full hidden sm:block">
                         <h1 class="text-gray-700 font-bold hover:underline">{{ DB::table('users')->where('id', $post->user_id)->first()->name }}</h1>
                     </a></div>

@@ -18,6 +18,7 @@ class CreateImagesTable extends Migration
             $table->string('url');
             $table->integer('imageable_id');
             $table->string('imageable_type');
+            $table->unique('imageable_id', 'imageable_type');
         });
     }
 
