@@ -17,6 +17,9 @@ class Post extends Model
         return $this->belongsTo(User::class);
     }
 
+    /**
+     * Get the post's image
+     */
     public function image()
     {
         return $this->morphOne(Image::class, 'imageable');
@@ -28,5 +31,13 @@ class Post extends Model
     public function categories()
     {
         return $this->belongsToMany(Category::class);
+    }
+
+    /**
+     * the tags that belongs to post
+     */
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class);
     }
 }
