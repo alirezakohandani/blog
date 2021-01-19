@@ -14,7 +14,7 @@
             {{ $post->title }}
           </h2>
           <div class="flex mt-3">
-            <img src="{{ $address . 'storage/app/file/' .$post->image->url }}"
+            <img src="{{ URL::to('/') . '/images/' .$post->image->url }}"
               class="h-10 w-10 rounded-full mr-2 object-cover" />
             <div>
               <p class="font-semibold text-gray-200 text-sm"> {{ $post->user->name }} </p>

@@ -26,7 +26,7 @@
             <div class="flex justify-between items-center mt-4"><a href="#"
                     class="text-blue-500 hover:underline">Read more</a>
                 <div><a href="#" class="flex items-center"><img
-                            src="{{ $address . 'storage/app/file/' . App\Models\User::where('id', $post->user_id)->first()->image['url']}}"
+                            src="{{ URL::to('/') . '/images/' . App\Models\User::where('id', $post->user_id)->first()->image['url'] }}"
                             alt="avatar" class="mx-4 w-10 h-10 object-cover rounded-full hidden sm:block">
                         <h1 class="text-gray-700 font-bold hover:underline">{{ DB::table('users')->where('id', $post->user_id)->first()->name }}</h1>
                     </a></div>
