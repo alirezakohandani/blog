@@ -158,6 +158,11 @@
                     <div class="form-item">
                       <label class="text-xl ">Tags</label>
                       <input name="tag" type="text" placeholder="php, programming, ..." class="w-full appearance-none text-black text-opacity-50 rounded shadow py-1 px-2 mr-2 focus:outline-none focus:shadow-outline focus:border-blue-200 text-opacity-25 ">
+                      @if ($errors->any())
+                         @foreach ($errors->all() as $error)
+                            <div style="color: red">{{$error}}</div>
+                         @endforeach
+                      @endif
                     </div>
                     <label class="text-xl ">upload image for post</label>
                       <label class="w-64 flex flex-col items-center px-4 py-6 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue hover:text-white">
