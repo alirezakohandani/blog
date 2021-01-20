@@ -25,4 +25,5 @@ class PostController extends Controller
 
         return view('blogs.blog-details', compact('post'));
     }
+
 }
