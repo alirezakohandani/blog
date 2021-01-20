@@ -132,8 +132,8 @@
                     </div>
                     <label class="text-xl ">vip plan</label>
                     <select name="vip">
-                        <option value="true">is vip post</option>
-                        <option value="false">not vip post</option>
+                        <option value="1">is vip post</option>
+                        <option value="0">not vip post</option>
                       </select>
                     <label class="text-xl ">post type</label>
                       <select name="post_type">
