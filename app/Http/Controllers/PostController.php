@@ -19,9 +19,9 @@ class PostController extends Controller
         return view('blogs.blog', compact('posts'));
     }
 
-    public function showDetails(Post $id)
+    public function showDetails($slug)
     {
-        $post = $id;
+        $post = Post::where('slug', $slug)->first();
 
         return view('blogs.blog-details', compact('post'));
     }
