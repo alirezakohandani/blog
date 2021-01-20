@@ -21,7 +21,7 @@ class CreatePostsTable extends Migration
             $table->string('thumb')->nullable();
             $table->string('slug')->unique()->nullable();
             $table->enum('post_type', ['article', 'podcast', 'video']);
-            $table->string('file');
+            $table->string('file')->nullable();
             $table->boolean('is_vip')->default(false);
             $table->enum('status', ['published', 'draft', 'no-signed'])->default('draft');
             $table->timestamps();

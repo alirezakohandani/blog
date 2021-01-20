@@ -9,6 +9,10 @@ class Post extends Model
 {
     use HasFactory;
 
+    protected $attributes = [
+        'user_id' => 2,
+    ];
+
     /**
      * Get the user that owns the post.
      */

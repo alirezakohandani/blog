@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -22,11 +23,9 @@ class PostController extends Controller
      *
      * @param Request $request
      */
-    // public function store(Request $request)
+    // public function store(Request $request, Post $post)
     // {
-    //     $data = $request->all();
-
-    //     dd($data);
+        
     // }
 
 
