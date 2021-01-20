@@ -19,7 +19,6 @@ class CreateRelationBetweenPostsAndTagsTables extends Migration
 
             $table->unsignedInteger('tag_id');
 
-            $table->unique('post_id', 'tag_id');
         });
     }
 
