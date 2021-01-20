@@ -16,10 +16,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('blogs.blog');
+    return view('admin.admin');
 });
 
 Route::group(['prefix' => 'post'], function() {
+    
     Route::get('/', [PostController::class, 'show'])->name('post.show');
     Route::get('details/{id}', [PostController::class, 'showDetails'])->name('post.show.details');
 });
