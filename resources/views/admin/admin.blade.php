@@ -110,7 +110,12 @@
                       <h3 class="text-2xl font-semibold">Post</h3>
                       <hr>
                     </div>
-          
+                    <label class="text-xl ">categories</label>
+                    <select name="category">
+                        @foreach (\App\Models\Category::all() as $category)
+                        <option value="{{ $category->id }}">{{ $category->category }}</option>
+                        @endforeach
+                    </select>
                     <div class="form-item">
                       <label class="text-xl ">title</label>
                       <input type="text" name="title" value="title" class="w-full appearance-none text-black text-opacity-50 rounded shadow py-1 px-2  mr-2 focus:outline-none focus:shadow-outline focus:border-blue-200">
@@ -149,12 +154,6 @@
                         <span class="mt-2 text-base leading-normal">Select a file</span>
                         <input name="file" type="file" class="hidden">
                     </label>
-                      <label class="text-xl ">categories</label>
-                      <select name="category">
-                          @foreach (\App\Models\Category::all() as $category)
-                          <option value="{{ $category->id }}">{{ $category->category }}</option>
-                          @endforeach
-                      </select>
                     <div class="form-item">
                       <label class="text-xl ">Tags</label>
                       <input name="tag" type="text" placeholder="php, programming, ..." class="w-full appearance-none text-black text-opacity-50 rounded shadow py-1 px-2 mr-2 focus:outline-none focus:shadow-outline focus:border-blue-200 text-opacity-25 ">

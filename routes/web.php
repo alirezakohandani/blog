@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,4 +23,5 @@ Route::get('/', function () {
 Route::group(['prefix' => 'post'], function() {
     Route::get('/', [PostController::class, 'show'])->name('post.show');
     Route::get('details/{slug}', [PostController::class, 'showDetails'])->name('post.show.details');
+    Route::post('details/{slug}', [PostController::class, 'storeComment'])->name('post.comment.store');
 });

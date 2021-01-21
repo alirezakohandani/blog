@@ -37,24 +37,26 @@ class PostController extends Controller
         $post->post_type = $request->post_type;
         $post->file = 'test.mp4';
 
-      
         $post->save();
 
         $post->categories()->attach($request->category);
 
+        
         $request->merge([
             'tags' => explode(',', $request->get('tag')),
         ]);
-
+    
         $request->validate([
             'tags' => 'array',
             'tags.*' => 'unique:tags,name',
         ]);
+
         foreach($request->tags as $name) {
         Tag::create([
             'name' => $name,
         ]
         );
+
       $post->tags()->attach(Tag::where('name', $name)->first()->id); 
     }
 
