@@ -24,7 +24,9 @@ class PostController extends Controller
     {
         $post = Post::where('slug', $slug)->first();
 
-        return view('blogs.blog-details', compact('post'));
+        $comments = \App\Models\Comment::where('post_id', $post->id)->get();
+
+        return view('blogs.blog-details', compact('post', 'comments'));
     }
 
     public function storeComment($slug, Request $request)
@@ -37,4 +39,6 @@ class PostController extends Controller
         $comment->body = $request->body;
         $comment->save();  
     }
+
+
 }

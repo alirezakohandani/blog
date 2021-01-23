@@ -30,7 +30,7 @@ class PostController extends Controller
      */
     public function store(Request $request, Post $post)
     {
- 
+
         $post->title =  $request->title;
         $post->body =  $request->body;
         $post->slug = $request->slug;

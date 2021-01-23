@@ -14,7 +14,7 @@
             {{ $post->title }}
           </h2>
           <div class="flex mt-3">
-            <img src="{{ URL::to('/') . '/images/' .$post->image->url }}"
+            <img src=""
               class="h-10 w-10 rounded-full mr-2 object-cover" />
             <div>
               <p class="font-semibold text-gray-200 text-sm"> {{ $post->user->name }} </p>
@@ -55,7 +55,14 @@
           </form>
        </div>
     </div>
-      </div>
+  </div>
 
-  
+  @foreach ($comments as $comment)
+  @if ($comment->parent_id == null)
+  {{ \App\Models\User::select('name')->where('id', $comment->id)->first()->name }}: <b>{{ $comment->body }}</b><br>
+  @endif
+   @foreach(\App\Models\Comment::where('parent_id', $comment->id)->get() as $reply) 
+   {{ \App\Models\User::select('name')->where('id', $reply->id)->first()->name }}reply to <b>{{ \App\Models\User::select('name')->where('id', $reply->parent_id)->first()->name }}:</b>  {{ $reply->body }} <br>
+   @endforeach
+  @endforeach
     @stop
