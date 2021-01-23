@@ -9,6 +9,7 @@ use App\Models\Tag;
 use Illuminate\Http\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File as FacadesFile;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -35,26 +36,30 @@ class PostController extends Controller
         $post->slug = $request->slug;
         $post->is_vip = $request->vip;
         $post->post_type = $request->post_type;
-        $post->file = 'test.mp4';
+        $post->file = $request->file;
 
-      
         $post->save();
+
+        $request->file('file')->store('public');
 
         $post->categories()->attach($request->category);
 
+        
         $request->merge([
             'tags' => explode(',', $request->get('tag')),
         ]);
-
+    
         $request->validate([
             'tags' => 'array',
             'tags.*' => 'unique:tags,name',
         ]);
+
         foreach($request->tags as $name) {
         Tag::create([
             'name' => $name,
         ]
         );
+
       $post->tags()->attach(Tag::where('name', $name)->first()->id); 
     }
 
