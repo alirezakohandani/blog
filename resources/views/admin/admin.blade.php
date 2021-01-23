@@ -11,7 +11,7 @@
     <meta name="keywords" content="keywords,here">
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
-    <link href="https://unpkg.com/tailwindcss/dist/tailwind.min.css" rel="stylesheet"> <!--Replace with your tailwind.css once created-->
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet"> <!--Replace with your tailwind.css once created-->
     <link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet"> <!--Totally optional :) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js" integrity="sha256-xKeoJ50pzbUGkpQxDYHD7o7hxe0LaOGeguUidbq6vis=" crossorigin="anonymous"></script>
 
@@ -104,7 +104,7 @@
         <div class="main-content flex-1 bg-gray-100 mt-12 md:mt-2 pb-24 md:pb-5">
             <div class="col-span-12 md:border-solid md:border-l md:border-black md:border-opacity-25 h-full pb-12 md:col-span-10">
                 <div class="px-4 pt-4">
-                  <form action="{{ route('store.form') }}" class="flex flex-col space-y-8" method="post">
+                  <form action="{{ route('store.form') }}" class="flex flex-col space-y-8" method="post" enctype="multipart/form-data">
                     @csrf
                     <div>
                       <h3 class="text-2xl font-semibold">Post</h3>
@@ -140,14 +140,15 @@
                         <option value="1">is vip post</option>
                         <option value="0">not vip post</option>
                       </select>
-                    <label class="text-xl ">post type</label>
-                      <select name="post_type">
+                    <label class="text-xl">post type</label>
+                      <select name="post_type" onchange='CheckPostType(this.value);'>
                         <option value="article">article</option>
                         <option value="podcast">podcast</option>
                         <option value="video">video</option>
                       </select>
+    
                       <label class="text-xl ">upload podcast or video</label>
-                      <label class="w-64 flex flex-col items-center px-4 py-6 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue hover:text-white">
+                      <label id="upload" class="w-64 flex flex-col items-center px-4 py-6 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue hover:text-white">
                         <svg class="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                             <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z"></path>
                         </svg>
@@ -215,7 +216,16 @@
         }
     </script>
 
-
+<script type="text/javascript">
+    function CheckPostType(val){
+     var element=document.getElementById('upload');
+     if(val=='podcast'||val=='video')
+       element.style.display='block';
+     else  
+       element.style.display='none';
+    }
+    
+    </script> 
 </body>
 
 </html>
