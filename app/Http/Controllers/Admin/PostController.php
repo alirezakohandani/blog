@@ -30,13 +30,15 @@ class PostController extends Controller
      */
     public function store(Request $request, Post $post)
     {
-
+        
+        $request->file('file')->store('public');
+ 
         $post->title =  $request->title;
         $post->body =  $request->body;
         $post->slug = $request->slug;
         $post->is_vip = $request->vip;
         $post->post_type = $request->post_type;
-        $post->file = $request->file;
+        $post->file = str_replace('public/', '', $request->file('file')->store('public'));
 
         $post->save();
 
