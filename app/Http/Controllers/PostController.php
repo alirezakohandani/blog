@@ -11,6 +11,13 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
+
+    protected $request;
+
+    public function __construct(Request $request)
+    {
+        $this->request = $request;
+    }
     
     public function show()
     {
@@ -19,7 +26,7 @@ class PostController extends Controller
         return view('blogs.blog', compact('posts'));
     }
 
-    public function showDetails($slug, Request $request)
+    public function showDetails($slug)
     {
         $post = Post::where('slug', $slug)->first();
 
@@ -27,14 +34,14 @@ class PostController extends Controller
         
         foreach($post->visits as $vist)
         {
-         if ($vist->ip == $request->ip() && $vist->post_id == $post->id)
+         if ($vist->ip == $this->request->ip() && $vist->post_id == $post->id)
          {
             return view('blogs.blog-details', compact('post', 'comments'));
          }
         }
 
         $vist = new Visit();
-        $vist->ip = $request->ip();
+        $vist->ip = $this->request->ip();
         $vist->post_id = $post->id;
         $vist->save();
 
@@ -42,15 +49,15 @@ class PostController extends Controller
 
     }
 
-    public function storeComment($slug, Comment $comment, Request $request)
+    public function storeComment($slug, Comment $comment)
     {
         
         $post = Post::where('slug', $slug)->first();
 
         $comment->user_id = 2;
-        $comment->post_id = $request->post_id;
-        $comment->body = $request->body;
-        $comment->parent_id = $request->parent_id;
+        $comment->post_id = $this->request->post_id;
+        $comment->body = $this->request->body;
+        $comment->parent_id = $this->request->parent_id;
         $comment->save();  
     }
 
