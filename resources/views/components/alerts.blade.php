@@ -4,6 +4,8 @@
     </div>
 @endif
 
-@if (session('failed'))
-    failed
+@if (session('wrongInformation'))
+<div style="color: red">
+    username or password was wrong
+</div>
 @endif

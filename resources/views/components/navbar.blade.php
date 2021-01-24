@@ -22,18 +22,18 @@
         </div>
         <div>
            @guest
-            <button type="button" class="border border-gray-700 bg-gray-700 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-gray-800 focus:outline-none focus:shadow-outline">
+            <a href="{{ route('auth.login.form') }}"><button type="button" class="border border-gray-700 bg-gray-700 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-gray-800 focus:outline-none focus:shadow-outline">
                 login
-            </button>
+            </button></a>
             <a href="{{ route('auth.register.form') }}"><button type="button" class="border border-gray-700 bg-gray-700 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-gray-800 focus:outline-none focus:shadow-outline">
             register
             </button></a>
            @endguest 
             
            @auth
-           <button type="button" class="border border-gray-700 bg-gray-700 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-gray-800 focus:outline-none focus:shadow-outline">
+           <a href="{{ route('auth.logout') }}"><button type="button" class="border border-gray-700 bg-gray-700 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-gray-800 focus:outline-none focus:shadow-outline">
             log out
-          </button>
+          </button></a>
            @endauth
             </div>
     </div>
