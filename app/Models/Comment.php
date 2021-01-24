@@ -20,4 +20,21 @@ class Comment extends Model
     {
         return $this->belongsTo(Post::class);
     }
+
+    /**
+     * @return BelongsTo
+     */
+    public function parent()
+    {
+        return $this->belongsTo(static::class, 'parent_id');
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function children()
+    {
+        return $this->hasMany(static::class, 'parent_id');
+    }
+
 }

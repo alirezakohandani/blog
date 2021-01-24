@@ -38,17 +38,17 @@
           @csrf
 
   @foreach ($comments as $comment)
-  @if ($comment->parent_id == null)
+  @if ($comment->parent == null)
   <div class="inline-flex">
-  {{ \App\Models\User::select('name')->where('id', $comment->user_id)->first()->name }}: <b>{{ $comment->body }}</b><br>
+  {{ $comment->user->name }}: <b>{{ $comment->body }}</b><br>
    <input type="checkbox" name="parent_id" value="{{ $comment->id }}">
    <input type="hidden" name="post_id" value="{{ $post->id }}">
   </div>
   <br>
   @endif
-   @foreach(\App\Models\Comment::where('parent_id', $comment->id)->get() as $reply) 
-   {{ \App\Models\User::select('name')->where('id', $reply->user_id)->first()->name }}reply to <b>
-   {{ \App\Models\User::select('name')->where('id', $reply->parent_id)->first()->name }}:</b>  
+   @foreach($comment->children as $reply) 
+   {{ $reply->user->name }}reply to <b>
+   {{ $reply->user->where('id', $reply->parent_id)->first()->name }}:</b>  
    {{ $reply->body }} <input type="checkbox" name="parent_id" value="{{ $comment->id }}"> <br>
    @endforeach
   @endforeach
