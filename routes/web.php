@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('admin.admin');
+    return view('auth.register');
 });
 
 Route::group(['prefix' => 'post'], function() {
