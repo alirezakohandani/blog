@@ -14,7 +14,7 @@ class AddCellphoneToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->integer('cellphone')->nullable()->after('email');
+            $table->string('cellphone', 20)->nullable()->after('email');
         });
     }
 
