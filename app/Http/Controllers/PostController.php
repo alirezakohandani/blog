@@ -24,17 +24,22 @@ class PostController extends Controller
     {
         $post = Post::where('slug', $slug)->first();
 
-        return view('blogs.blog-details', compact('post'));
+        $comments = \App\Models\Comment::where('post_id', $post->id)->get();
+
+        return view('blogs.blog-details', compact('post', 'comments'));
     }
 
-    public function storeComment($slug, Request $request)
+    public function storeComment($slug, Comment $comment, Request $request)
     {
+        
         $post = Post::where('slug', $slug)->first();
-        $comment = new Comment();
 
         $comment->user_id = 2;
-        $comment->post_id = $post->id;
+        $comment->post_id = $request->post_id;
         $comment->body = $request->body;
+        $comment->parent_id = $request->parent_id;
         $comment->save();  
     }
+
+
 }
