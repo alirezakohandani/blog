@@ -28,6 +28,7 @@
     <meta name="twitter:description" content="Simple blog page with Authors and Categories" />
     <meta name="twitter:image" content="https://tailwindcomponents.com/storage/2012/conversions/temp49695-ogimage.jpg?v=2021-01-17 06:40:56" />
 
-    <title>Blog Page by khatabwedaa. </title>
-
+    <title>@yield('title')</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    @yield('links')
+</head>
