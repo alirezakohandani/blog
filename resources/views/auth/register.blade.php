@@ -19,8 +19,8 @@
             <input 
                 type="text"
                 class="block border border-grey-light w-full p-3 rounded mb-4"
-                name="fullname"
-                placeholder="Full Name" />
+                name="name"
+                placeholder="name" />
             <input 
                 type="password"
                 class="block border border-grey-light w-full p-3 rounded mb-4"
