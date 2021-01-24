@@ -1,6 +1,9 @@
 @extends('layouts.app')
 
+
 @section('content')
+
+@include('components.alerts')
 
 <div class="w-full lg:w-8/12">
     <div class="flex items-center justify-between">
