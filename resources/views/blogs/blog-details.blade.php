@@ -28,6 +28,9 @@
 
       <div class="px-4 lg:px-0 mt-12 text-gray-700 max-w-screen-md mx-auto text-lg leading-relaxed">
         <p class="pb-6">{{ $post->body }}</p>
+        <p class="font-semibold text-gray-400 text-xs"> 
+          <b>Views: {{ $post->visits->count() }} </b>
+          </p>
         <div class="bg-gray-800 text-white py-3 px-4 text-center fixed left-0 bottom-0 right-0 z-40">
             This a Comment form by JermineJunior. 
             <a class="underline text-gray-200" href="https://tailwindcomponents.com/component/comment-form">Component details</a>

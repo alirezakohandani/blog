@@ -22,6 +22,7 @@
             </div>
             <div class="mt-2"><a href="#" class="text-2xl text-gray-700 font-bold hover:underline">{{ $post->title }}</a>
                 <p class="mt-2 text-gray-600">{{ Str::limit($post->body, 120) }}</p>
+                <p class="mt-2 text-gray-600"> <b style="color: blue">Views</b>: {{ $post->visits->count() }}</p>
             </div>
             <div class="flex justify-between items-center mt-4"><a href="#"
                     class="text-blue-500 hover:underline">Read more</a>
@@ -29,7 +30,9 @@
                             src="{{ URL::to('/') . '/storage/' . App\Models\User::where('id', $post->user_id)->first()->image['url'] }}"
                             alt="avatar" class="mx-4 w-10 h-10 object-cover rounded-full hidden sm:block">
                         <h1 class="text-gray-700 font-bold hover:underline">{{ DB::table('users')->where('id', $post->user_id)->first()->name }}</h1>
+                        
                     </a></div>
+                        
             </div>
         </div>
     </div>
