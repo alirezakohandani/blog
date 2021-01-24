@@ -16,6 +16,16 @@ class RegisterController extends Controller
 
     public function register(Request $request)
     {
-        return true;
+        $this->validateForm($request);
+    }
+
+    protected function validateForm(Request $request)
+    {
+        $request->validate([
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'fullname' => ['required', 'string', 'max:255'],
+            'password' => ['required', 'string', 'min:3', 'confirmed'],
+            'cellphone' => ['numeric', 'digits:3', 'nullable'],
+        ]);
     }
 }

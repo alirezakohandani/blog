@@ -7,7 +7,7 @@
     </div>
     <div class="bg-gray-100 overflow-x-hidden">
 
-    @include('partials.navbar')
+    @include('components.navbar')
 
     <div class="px-6 py-8">
         <div class="flex justify-between container mx-auto">
