@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Comment;
 use App\Models\Post;
 use App\Models\Visit;
+use App\Services\CommentStore;
 use Illuminate\Http\Request;
 
 
@@ -49,16 +50,13 @@ class PostController extends Controller
 
     }
 
-    public function storeComment($slug, Comment $comment)
+    public function storeComment(CommentStore $comment)
     {
-        
-        $post = Post::where('slug', $slug)->first();
 
-        $comment->user_id = 2;
-        $comment->post_id = $this->request->post_id;
-        $comment->body = $this->request->body;
-        $comment->parent_id = $this->request->parent_id;
-        $comment->save();  
+        $comment->store($this->request);
+
+        return redirect()->back()->with('SuccessComment', true);
+        
     }
 
 
