@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
-class PostController extends Controller
+class postController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,18 +15,16 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        
+        $posts = Post::all();
+        return response()->json([
+            'status' => 'success',
+            'data' => [
+                'post' => $posts
+            ],
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -46,7 +45,14 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        //
+        $post = Post::findOrFail($id);
+
+        return response()->json([
+            'status' => 'success',
+            'data' => [
+                'post' => $post,
+            ]
+        ]);
     }
 
     /**
