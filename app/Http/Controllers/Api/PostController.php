@@ -32,7 +32,7 @@ class postController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validatePost($request);
     }
 
     /**
@@ -85,5 +85,21 @@ class postController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    private function validatePost($request)
+    {
+
+        $request->validate([
+            'user_id' => ['required', 'numeric'],
+            'title' => ['required', 'string', 'max:255'],
+            'body' => ['required', 'string'],
+            'slug' => ['nullable', 'unique:posts'],
+            'post_type' => ['required'],
+            'file' => ['nullable'],
+            'is_vip' => ['numeric'],
+            'status' => ['string'],
+
+        ]);
     }
 }
