@@ -32,7 +32,13 @@ class postController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validatePost($request);
+        //$this->validatePost($request);
+
+        Post::create($request->all());
+
+        return response()->json([
+            'message' => 'created',
+        ]);
     }
 
     /**
