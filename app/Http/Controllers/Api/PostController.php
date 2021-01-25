@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\PostResource;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
@@ -50,7 +51,7 @@ class postController extends Controller
         return response()->json([
             'status' => 'success',
             'data' => [
-                'post' => $post,
+                'post' => new PostResource($post),
             ]
         ]);
     }
