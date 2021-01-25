@@ -36,7 +36,9 @@ class PostController extends Controller
         $post->slug = $request->slug;
         $post->is_vip = $request->vip;
         $post->post_type = $request->post_type;
-        $post->file = null;
+        $post->file = ($post->post_type !== 'article') 
+                        ? $request->file->getClientOriginalName() 
+                        : null;
 
         $this->uploadImage($request, $post);
 
@@ -68,16 +70,10 @@ class PostController extends Controller
 
     private function uploadImage($request, $post)
     {
-        if ($request->post_type == 'video') {
-            $request->file('file')->store('public/videos');
-            $post->file = str_replace('public/videos/', '', $request->file('file')->store('public/videos'));
-        }
-        if ($request->post_type == 'podcast') {
-            $request->file('file')->store('public/podcasts');
-            $post->file = str_replace('public/podcasts/', '', $request->file('file')->store('public/podcasts'));
-        }
+  
+        return $request->post_type == 'video'
+            ? $request->file('file')->store('public/videos') 
+            : $request->file('file')->store('public/podcasts');
     }
    
-
-
 }
