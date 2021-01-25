@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\PostCollection;
 use App\Http\Resources\PostResource;
 use App\Models\Post;
 use Illuminate\Http\Request;
@@ -18,12 +19,8 @@ class postController extends Controller
     {
         
         $posts = Post::all();
-        return response()->json([
-            'status' => 'success',
-            'data' => [
-                'post' => $posts
-            ],
-        ]);
+
+        return response()->json(new PostCollection($posts));
     }
 
 
