@@ -8,6 +8,7 @@ use App\Models\Post;
 use App\Models\Tag;
 use Illuminate\Http\File;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File as FacadesFile;
 use Illuminate\Support\Facades\Storage;
 
@@ -30,7 +31,9 @@ class PostController extends Controller
      */
     public function store(Request $request, Post $post)
     {
+        $this->validateForm($request);
 
+        $post->user_id = Auth::id();
         $post->title =  $request->title;
         $post->body =  $request->body;
         $post->slug = $request->slug;
@@ -75,5 +78,19 @@ class PostController extends Controller
             ? $request->file('file')->store('public/videos') 
             : $request->file('file')->store('public/podcasts');
     }
-   
+
+    protected function validateForm(Request $request)
+    {
+        $request->validate([
+            'user_id' => ['numeric'],
+            'title' => ['required', 'string', 'max:255'],
+            'body' => ['required', 'string'],
+            'slug' => ['nullable', 'unique:posts'],
+            'post_type' => ['required'],
+            'file' => ['nullable'],
+            'image' => ['nullable', 'mimes:jpg,bmp,png'],
+            'is_vip' => ['numeric'],
+            'status' => ['string'],
+        ]);
+    }
 }
