@@ -20,6 +20,11 @@ class PostController extends Controller
         $this->request = $request;
     }
     
+    /**
+     * show list of posts
+     *
+     * @return void
+     */
     public function show()
     {
         $posts = Post::all();
@@ -33,23 +38,15 @@ class PostController extends Controller
 
         $comments = \App\Models\Comment::where('post_id', $post->id)->get();
         
-        foreach($post->visits as $vist)
-        {
-         if ($vist->ip == $this->request->ip() && $vist->post_id == $post->id)
-         {
-            return view('blogs.blog-details', compact('post', 'comments'));
-         }
-        }
+        $this->visits($post);
 
-        $vist = new Visit();
-        $vist->ip = $this->request->ip();
-        $vist->post_id = $post->id;
-        $vist->save();
-
-        return redirect()->back();
-
+        return view('blogs.blog-details', compact('post', 'comments'));
+        
     }
 
+    /**
+     * store comment
+     */
     public function storeComment(CommentStore $comment)
     {
 
@@ -57,6 +54,23 @@ class PostController extends Controller
 
         return redirect()->back()->with('SuccessComment', true);
         
+    }
+
+    public function visits(Post $post)
+    {
+
+        foreach($post->visits as $vist)
+        {
+         if ($vist->ip == $this->request->ip() && $vist->post_id == $post->id)
+         {
+            return true;
+         }
+        }
+
+        $vist = new Visit();
+        $vist->ip = $this->request->ip();
+        $vist->post_id = $post->id;
+        $vist->save();
     }
 
 
