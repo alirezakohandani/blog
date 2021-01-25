@@ -31,6 +31,7 @@ class PostController extends Controller
      */
     public function store(Request $request, Post $post)
     {
+        
         $this->validateForm($request);
 
         $post->user_id = Auth::id();
@@ -43,8 +44,10 @@ class PostController extends Controller
                         ? $request->file->getClientOriginalName() 
                         : null;
 
-        $this->uploadImage($request, $post);
-
+        if ($request->post_type !== 'article') {
+            $this->uploadImage($request, $post);
+         }               
+        
         $post->save();
 
         $post->categories()->attach($request->category);
@@ -71,7 +74,7 @@ class PostController extends Controller
 
     }
 
-    private function uploadImage($request, $post)
+    private function uploadImage($request)
     {
   
         return $request->post_type == 'video'
