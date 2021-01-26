@@ -3,14 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Image;
 use App\Models\Post;
 use App\Models\Tag;
-use Illuminate\Http\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\File as FacadesFile;
-use Illuminate\Support\Facades\Storage;
+
 
 class PostController extends Controller
 {
@@ -29,11 +26,12 @@ class PostController extends Controller
      *
      * @param Request $request
      */
-    public function store(Request $request, Post $post)
+    public function store(Request $request)
     {
         
         $this->validateForm($request);
 
+        $post = new Post();
         $post->user_id = Auth::id();
         $post->title =  $request->title;
         $post->body =  $request->body;

@@ -22,13 +22,14 @@ Route::get('/', function () {
     return view('auth.register');
 });
 
-Route::group(['prefix' => 'post'], function() {
+Route::group(['prefix' => 'posts'], function() {
     Route::get('/', [PostController::class, 'show'])->name('post.show');
     Route::get('details/{slug}', [PostController::class, 'showDetails'])->name('post.show.details');
-    Route::post('details/{slug}', [PostController::class, 'storeComment'])->name('post.comment.store');
+    Route::post('details/{slug}/comments', [CommentController::class, 'store'])->name('post.comment.store');
 });
 
 Route::group(['prefix' => 'auth'], function() {
+
     Route::get('register', [RegisterController::class, 'showRegisterForm'])->name('auth.register.form');
     Route::post('register', [RegisterController::class, 'register'])->name('auth.register');
     
