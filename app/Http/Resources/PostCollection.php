@@ -19,6 +19,7 @@ class PostCollection extends ResourceCollection
             'status' => 'success',
             'data' => [
                 'post' => $this->collection,
+                'count' => $this->total(),
             ],
             
         ];
