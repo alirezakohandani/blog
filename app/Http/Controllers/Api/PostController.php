@@ -100,7 +100,14 @@ class postController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post = Post::findOrFail($id);
+
+        $post->delete();
+
+        return response()->json([
+            'status' => 'success',
+            'data' => 'delete Ok',
+        ]);
     }
 
     private function validatePost($request)
