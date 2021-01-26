@@ -48,7 +48,8 @@ class postController extends Controller
         }
 
         return response()->json([
-            'message' => 'created',
+            'status' => 'success',
+            'data' => 'post created',
         ]);
     }
 
