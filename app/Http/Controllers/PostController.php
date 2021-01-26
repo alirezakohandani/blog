@@ -44,18 +44,6 @@ class PostController extends Controller
         
     }
 
-    /**
-     * store comment
-     */
-    public function storeComment(CommentStore $comment)
-    {
-
-        $comment->store($this->request);
-
-        return redirect()->back()->with('SuccessComment', true);
-        
-    }
-
     public function visits(Post $post)
     {
 

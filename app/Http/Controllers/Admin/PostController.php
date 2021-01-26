@@ -3,13 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Image;
 use App\Models\Post;
 use App\Models\Tag;
-use Illuminate\Http\File;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File as FacadesFile;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
+
 
 class PostController extends Controller
 {
@@ -28,9 +26,13 @@ class PostController extends Controller
      *
      * @param Request $request
      */
-    public function store(Request $request, Post $post)
+    public function store(Request $request)
     {
+        
+        $this->validateForm($request);
 
+        $post = new Post();
+        $post->user_id = Auth::id();
         $post->title =  $request->title;
         $post->body =  $request->body;
         $post->slug = $request->slug;
@@ -40,8 +42,10 @@ class PostController extends Controller
                         ? $request->file->getClientOriginalName() 
                         : null;
 
-        $this->uploadImage($request, $post);
-
+        if ($request->post_type !== 'article') {
+            $this->uploadImage($request, $post);
+         }               
+        
         $post->save();
 
         $post->categories()->attach($request->category);
@@ -68,12 +72,26 @@ class PostController extends Controller
 
     }
 
-    private function uploadImage($request, $post)
+    private function uploadImage($request)
     {
   
         return $request->post_type == 'video'
             ? $request->file('file')->store('public/videos') 
             : $request->file('file')->store('public/podcasts');
     }
-   
+
+    protected function validateForm(Request $request)
+    {
+        $request->validate([
+            'user_id' => ['numeric'],
+            'title' => ['required', 'string', 'max:255'],
+            'body' => ['required', 'string'],
+            'slug' => ['nullable', 'unique:posts'],
+            'post_type' => ['required'],
+            'file' => ['nullable'],
+            'image' => ['nullable', 'mimes:jpg,bmp,png'],
+            'is_vip' => ['numeric'],
+            'status' => ['string'],
+        ]);
+    }
 }

@@ -37,24 +37,24 @@
         </div>
         <!-- comment form -->
     <div class="flex mx-auto items-center justify-center shadow-lg mt-56 mx-8 mb-4 max-w-lg">
-       <form method="post" action="" class="w-full max-w-xl bg-white rounded-lg px-4 pt-2">
+       <form method="post" action="{{ route('post.comment.store', $post->slug) }}" class="w-full max-w-xl bg-white rounded-lg px-4 pt-2">
           @csrf
 
-  @foreach ($comments as $comment)
-  @if ($comment->parent == null)
-  <div class="inline-flex">
-  {{ $comment->user->name }}: <b>{{ $comment->body }}</b><br>
-   <input type="checkbox" name="parent_id" value="{{ $comment->id }}">
-   <input type="hidden" name="post_id" value="{{ $post->id }}">
-  </div>
-  <br>
-  @endif
-   @foreach($comment->children as $reply) 
-   {{ $reply->user->name }}reply to <b>
-   {{ $reply->user->where('id', $reply->parent_id)->first()->name }}:</b>  
-   {{ $reply->body }} <input type="checkbox" name="parent_id" value="{{ $comment->id }}"> <br>
-   @endforeach
-  @endforeach
+          @foreach ($comments as $comment)
+          @if ($comment->parent == null)
+          <div class="inline-flex">
+          {{ $comment->user->name }}: <b>{{ $comment->body }}</b><br>
+           <input type="checkbox" name="parent_id" value="{{ $comment->id }}">
+           <input type="hidden" name="post_id" value="{{ $post->id }}">
+          </div>
+          <br>
+          @endif
+           @foreach($comment->children as $reply) 
+           {{ $reply->user->name }}reply to <b>
+           {{ $reply->user->where('id', $reply->parent->user_id)->first()->name }}:</b>  
+           {{ $reply->body }} <input type="checkbox" name="parent_id" value="{{ $comment->id }}"> <br>
+           @endforeach
+          @endforeach
   <input type="hidden" name="post_id" value="{{ $post->id }}">
           <div class="flex flex-wrap -mx-3 mb-6">
             @include('components.alerts')
