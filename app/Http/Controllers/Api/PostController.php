@@ -7,6 +7,8 @@ use App\Http\Resources\PostCollection;
 use App\Http\Resources\PostResource;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rules\Exists;
 
 class postController extends Controller
 {
@@ -23,7 +25,6 @@ class postController extends Controller
         return response()->json(new PostCollection($posts));
     }
 
-
     /**
      * Store a newly created resource in storage.
      *
@@ -35,6 +36,10 @@ class postController extends Controller
         //$this->validatePost($request);
 
         Post::create($request->all());
+
+        if ($request->post_type !== 'article') {
+            $this->uploadImage($request);
+        }
 
         return response()->json([
             'message' => 'created',
@@ -107,5 +112,12 @@ class postController extends Controller
             'status' => ['string'],
 
         ]);
+    }
+
+    private function uploadImage($request)
+    {
+        return $request->post_type == 'video'
+            ? $request->file('file')->store('public/videos')
+            : $request->file('file')->store('public/podcasts'); 
     }
 }
