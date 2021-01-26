@@ -33,9 +33,15 @@ class postController extends Controller
      */
     public function store(Request $request)
     {
-        //$this->validatePost($request);
+        $this->validatePost($request);
 
-        Post::create($request->all());
+        Post::create([
+            'user_id' => $request->user_id,
+            'title' => $request->title,
+            'body' => $request->body,
+            'post_type' => $request->post_type,
+            'file' => $request->file,
+        ]);
 
         if ($request->post_type !== 'article') {
             $this->uploadImage($request);
