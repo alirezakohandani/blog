@@ -59,7 +59,8 @@ class PostController extends Controller
             'tags.*' => 'unique:tags,name',
         ]);
 
-        foreach($request->tags as $name) {
+        foreach($request->tags as $name) 
+    {
         Tag::create([
             'name' => $name,
         ]
