@@ -8,72 +8,83 @@ use Illuminate\Routing\Controller;
 
 class CartController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * @return Renderable
-     */
-    public function index()
-    {
-        return view('cart::index');
-    }
+    protected $cart;
 
-    /**
-     * Show the form for creating a new resource.
-     * @return Renderable
-     */
-    public function create()
+    public function __construct()
     {
-        return view('cart::create');
+       $this->middleware('auth');
+       $this->cart = app(CartStore::class);
     }
-
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
-     */
+ 
     public function store(Request $request)
     {
-        //
+     
+    $this->cart->store($request); 
+ 
+    return redirect()->back()->with('successInsertStore', 'محصول به سبد خرید اضافه شد.'); 
+   
     }
-
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function show($id)
+ 
+    public function show() {
+   
+      $data = $this->cart->show();
+ 
+     if ($data === 0) {
+ 
+        return redirect()->back()->with('emptyCart', 'سبد خرید خالی است.');
+        
+     }
+ 
+      return view('layouts.cart', [
+       'carts' => $data['files'],
+       'address' => 'http://localhost/laravel_project/storage/app/',
+       'number' => $data['files_in_cart'],
+       'shipment' => 20000,
+ 
+      
+       ]);
+ 
+    }
+ 
+ 
+    public function destroy(Request $request)
     {
-        return view('cart::show');
+    
+       $this->cart->destroy($request);
+ 
+       return redirect()->back()->with('deleteWithRedis', 'محصول از سبد خرید حذف شد.');
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function edit($id)
+ 
+    public function clear()
     {
-        return view('cart::edit');
+     
+       $this->cart->clear();
+       return redirect()->route('shop')->with('deleteCart', 'سبد خرید شما خالی است.');
     }
-
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Renderable
-     */
-    public function update(Request $request, $id)
+ 
+    public function checkoutForm()
     {
-        //
+       return view('layouts.checkout');
     }
-
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
-     */
-    public function destroy($id)
+ 
+    public function checkout(Request $request, Transaction $transaction)
     {
-        //
+ 
+       $request->validate([
+          'method' => 'required',
+          'gateway' => 'required_if:method,online'
+       ]);
+ 
+       $order = $transaction->checkout();
+   
+       if ($request->method == 'online') {
+          
+         return redirect()->away($order);
+       }
+ 
+       return redirect()->route('shop')->with('success_payment', true);
+ 
     }
+ 
+ 
 }
