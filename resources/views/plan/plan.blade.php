@@ -5,7 +5,7 @@
     <h1
             class="flex py-5 lg:px-20 md:px-10 px-5 lg:mx-40 md:mx-20 mx-5 font-bold text-4xl text-gray-800"
           >
-            Example
+            Plans
           </h1>
           <div
             class="flex overflow-x-scroll pb-10 hide-scroll-bar"
