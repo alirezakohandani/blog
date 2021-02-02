@@ -22,6 +22,7 @@ class Comment extends Model
     }
 
     /**
+     * Get the parent that owns the comment.
      * @return BelongsTo
      */
     public function parent()
@@ -30,6 +31,7 @@ class Comment extends Model
     }
 
     /**
+     * Get the childern for the comment.
      * @return HasMany
      */
     public function children()
