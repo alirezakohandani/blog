@@ -13,17 +13,19 @@
             <div
               class="flex flex-nowrap lg:ml-40 md:ml-20 ml-10 "
             >
+            @foreach ($plans as $plan)
               <div class="inline-block px-3">
                 <div
-                  class="w-64 h-64 max-w-xs overflow-hidden rounded-lg shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out"
-                >
+                  class="w-64 h-64 max-w-xs overflow-hidden rounded-lg shadow-md bg-white hover:shadow-xl transition-shadow duration-300 ease-in-out">
                 <div class="p-4">
-                    <p class="mb-1 text-gray-900 font-semibold">Card Title</p>
+                    <p class="mb-1 text-gray-900 font-semibold">{{ $plan->title }}</p>
             
-                    <span class="text-gray-700">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi fugit hic ab quos eos
-                      quisquam labore minus</span>
+                    <span class="text-gray-700">{{ $plan->description }}</span>
                       <br>
-                      <b class="text-gray-700">price: </b>
+                      <b class="text-gray-700">price: {{ $plan->price }}</b>
+                      <br>
+                      <b class="text-gray-700">duration: {{ $plan->duration }}</b> months
+            
             
                     <div class="mt-8 mb-3">
                       <a href="#"
@@ -31,8 +33,11 @@
                         Button</a>
                     </div>
                   </div>
+                 
             </div>
+           
               </div>
+              @endforeach
             </div>
           </div>
     </div>
