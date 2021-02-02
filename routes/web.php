@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('auth.register');
+    return view('plan.plan');
 });
 
 Route::group(['prefix' => 'posts'], function() {
