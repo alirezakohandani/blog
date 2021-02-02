@@ -11,6 +11,13 @@
 |
 */
 
-Route::prefix('cart')->group(function() {
-    Route::get('/', 'CartController@index');
+Route::group(['prefix' => 'cart', 'namespace' => 'Front', 'as' => 'cart.'], function () {
+    
+    Route::post('/', 'CartController@store')->name('store');  
+    Route::get('/show', 'CartController@show')->name('show');  
+    Route::post('/destroy', 'CartController@destroy')->name('destroy');
+    Route::post('/clear', 'CartController@clear')->name('clear');
+    Route::get('/checkout', 'CartController@checkoutForm')->name('checkout.form');
+    Route::post('checkout', 'CartController@checkout')->name('checkout');
+    
 });
