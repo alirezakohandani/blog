@@ -18,7 +18,7 @@ class PostController extends Controller
      */
     public function show()
     {
-        return view('admin.admin');
+        return view('admin.post');
     }
 
     /**
