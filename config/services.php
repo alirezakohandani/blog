@@ -31,7 +31,7 @@ return [
     ],
 
     'sms' => [
-        'SecretKey' => env('SMS_SECURITY_KEY'),
+        'SecretKey' => env('SMS_SECURITY_CODE'),
         'UserApiKey' => env('SMS_USER_API_KEY'),
         'LineNumber' => env('SMS_LINE_NUMBER'),
     ]
