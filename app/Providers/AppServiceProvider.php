@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Services\NotificationInterface;
+use App\Services\Sms;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
 
@@ -14,7 +17,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->singleton(NotificationInterface::class, Sms::class);
     }
 
     /**

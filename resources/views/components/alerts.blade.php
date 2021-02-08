@@ -15,3 +15,15 @@
     comment insert successfully
 </div>
 @endif
+
+@if (session('dontSendSms'))
+<div style="color: red">
+    message dont send
+</div>
+@endif
+
+@if (session('sendSms'))
+<div style="color: green">
+    successfully send
+</div>
+@endif
