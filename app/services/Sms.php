@@ -2,18 +2,31 @@
 
 namespace App\Services;
 
+use App\Models\User;
 use App\services\NotificationInterface;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 
 class Sms implements NotificationInterface
 {
-   
-    private $request;
+   /**
+    * user cellphone
+    *
+    * @var [string]
+    */
+    private $cellphone;
+
+    /**
+     * sms body
+     *
+     * @var [string]
+     */
+    private $text;
     
     public function __construct(Request $request)
     {
-        $this->request = $request;
+        $this->cellphone = User::where('id', $request->user)->first()->cellphone; 
+        $this->text = $request->text;
     }
   
     /**
@@ -25,7 +38,8 @@ class Sms implements NotificationInterface
     {
         $client = new Client();
         $token = $this->generateToken($client);
-        return $this->sendBody($client, $token);  
+        return $this->sendBody($client, $token); 
+       
     }
 
     /**
@@ -60,8 +74,8 @@ class Sms implements NotificationInterface
     private function sendBody(Client $client, $token)
     {
         $data = [
-            'Messages' => $this->request->text,
-            'MobileNumbers' => ["09129750492"],
+            'Messages' => [$this->text],
+            'MobileNumbers' => [$this->cellphone],
             'LineNumber' => '30008002046206',
             'SendDateTime' => '',
             'CanContinueInCaseOfError'=> 'false',
@@ -75,6 +89,9 @@ class Sms implements NotificationInterface
            
         ];
 
-        return $client->post('https://RestfulSms.com/api/MessageSend', $option);
+        $response = $client->post('https://RestfulSms.com/api/MessageSend', $option);
+
+        return $response;
+        
     }
 }

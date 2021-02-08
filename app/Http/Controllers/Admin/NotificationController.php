@@ -26,7 +26,10 @@ class NotificationController extends Controller
         $request->validate([
             'text' => ['required', 'max:256'],
         ]);
-            $this->notify->send();
+         $response = $this->notify->send();
+        
+         echo $response->getBody();
+        
     }
 
 }   
