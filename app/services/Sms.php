@@ -25,7 +25,7 @@ class Sms implements NotificationInterface
     
     public function __construct(Request $request)
     {
-        $this->cellphone = User::where('id', $request->user)->first()->cellphone; 
+        $this->cellphone = $request->user ? User::where('id', $request->user)->first()->cellphone : null; 
         $this->text = $request->text;
     }
   
@@ -73,6 +73,7 @@ class Sms implements NotificationInterface
      */
     private function sendBody(Client $client, $token)
     {
+        
         $data = [
             'Messages' => [$this->text],
             'MobileNumbers' => [$this->cellphone],

@@ -21,15 +21,26 @@ class NotificationController extends Controller
         return view('admin.sms');
     }
 
+    /**
+     * send sms
+     *
+     * @param Request $request
+     * @return void
+     */
     public function sendSms(Request $request)
     {
         $request->validate([
             'text' => ['required', 'max:256'],
         ]);
+            
          $response = $this->notify->send();
-        
-         echo $response->getBody();
-        
+      
+        if(json_decode($response->getBody())->IsSuccessful === false)
+        {
+            return redirect()->back()->with('dontSendSms', true);
+        }
+
+        return redirect()->back()->with('sendSms', true);
     }
 
 }   

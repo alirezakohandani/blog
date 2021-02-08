@@ -22,6 +22,7 @@
             <p style="color: red">{{ $error }}</p>
           @endforeach
       @endif
+      @include('components.alerts') 
     <button name="submit" class="uppercase px-8 py-2 bg-blue-600 text-blue-50 max-w-max shadow-sm hover:shadow-lg">submit</button>
   </form>
 @endsection
