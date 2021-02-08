@@ -6,6 +6,7 @@ use App\Models\User;
 use App\services\NotificationInterface;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class Sms implements NotificationInterface
 {
@@ -37,9 +38,13 @@ class Sms implements NotificationInterface
     public function send()
     {
         $client = new Client();
+        if (Cache::get('token')) {
+            $token = Cache::get('token');
+            return $this->sendBody($client, $token); 
+        }
         $token = $this->generateToken($client);
+        Cache::put('token', $token, 1780);
         return $this->sendBody($client, $token); 
-       
     }
 
     /**
