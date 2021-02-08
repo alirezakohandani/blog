@@ -9,6 +9,12 @@ use Illuminate\Http\Request;
 
 class NotificationController extends Controller
 {
+    private $notify;
+
+    public function __construct()
+    {
+        $this->notify = app(NotificationInterface::class);
+    }
 
     public function show()
     {
@@ -19,8 +25,8 @@ class NotificationController extends Controller
     {
         $request->validate([
             'text' => ['required', 'max:256'],
-            'user' => ['required', 'exists:users'],
         ]);
+            $this->notify->send();
     }
 
 }   

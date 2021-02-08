@@ -8,26 +8,15 @@ use Illuminate\Http\Request;
 
 class Sms implements NotificationInterface
 {
-    private $request;
-    /**
-     * sms text
-     *
-     * @var [string]
-     */
-    private $text;
+    
 
-    public function __construct(Request $request, $text)
-    {
-        $this->request = $request;
-        $this->text = $text;
-    }
     /**
-     * send smm
+     * send sms
      *
      * @return void
      */
     public function send()
     {
-        return true;
+        dd('tes');
     }
 }
