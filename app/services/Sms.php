@@ -8,6 +8,13 @@ use Illuminate\Http\Request;
 
 class Sms implements NotificationInterface
 {
+   
+    private $request;
+    
+    public function __construct(Request $request)
+    {
+        $this->request = $request;
+    }
   
     /**
      * send smm
@@ -17,7 +24,8 @@ class Sms implements NotificationInterface
     public function send()
     {
         $client = new Client();
-        $this->generateToken($client);
+        $token = $this->generateToken($client);
+        return $this->sendBody($client, $token);  
     }
 
     /**
@@ -28,18 +36,45 @@ class Sms implements NotificationInterface
      */
     private function generateToken(Client $client)
     {
-        $data =[
+        $data = [
             "UserApiKey" => config('services.sms.UserApiKey'),
 	        "SecretKey" => config('services.sms.SecretKey'),
         ];
-
+        
         $option = [
             'json' => $data,
         ]; 
-
+        
         $response = $client->post('https://RestfulSms.com/api/Token', $option);
 
         return json_decode($response->getBody())->TokenKey;
-        
+    }
+
+    /**
+     * send body sms
+     *
+     * @param Client $client
+     * @param string $token
+     * @return void
+     */
+    private function sendBody(Client $client, $token)
+    {
+        $data = [
+            'Messages' => $this->request->text,
+            'MobileNumbers' => ["09129750492"],
+            'LineNumber' => '30008002046206',
+            'SendDateTime' => '',
+            'CanContinueInCaseOfError'=> 'false',
+        ];
+
+        $option = [
+            'headers' => [
+                'x-sms-ir-secure-token' => $token,
+            ],
+            'json' => $data,
+           
+        ];
+
+        return $client->post('https://RestfulSms.com/api/MessageSend', $option);
     }
 }
