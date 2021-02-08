@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
@@ -19,9 +20,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('plan.plan');
-});
 
 Route::group(['prefix' => 'posts'], function() {
     Route::get('/', [PostController::class, 'show'])->name('post.show');
@@ -43,3 +41,4 @@ Route::group(['prefix' => 'auth'], function() {
 Route::group(['prefix' => 'plans', 'as' => 'plan.'], function() {
     Route::get('/', [PlanController::class, 'show'])->name('show');
 });
+

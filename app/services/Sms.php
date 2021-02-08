@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\services\NotificationInterface;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 
 class Sms implements NotificationInterface
