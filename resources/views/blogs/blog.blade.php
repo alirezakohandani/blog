@@ -22,7 +22,7 @@
             <div class="flex justify-between items-center"><span class="font-light text-gray-600">
                 {{ DateTime::createFromFormat('Y-m-d H:i:s', $post->created_at)->format('Y-M-d - H:i') }}
             </span><a href="#"
-                    class="px-2 py-1 bg-gray-600 text-gray-100 font-bold rounded hover:bg-gray-500">{{ ($post->Categories()->first()) ? $post->Categories()->first()->category : 'no category' }} - {{ $post->post_type }}</a>
+                    class="px-2 py-1 bg-gray-600 text-gray-100 font-bold rounded hover:bg-gray-500">{{ $post->if_category_exists }} - {{ $post->post_type }}</a>
             </div>
             <div class="mt-2"><a href="#" class="text-2xl text-gray-700 font-bold hover:underline">{{ $post->title }}</a>
                 <p class="mt-2 text-gray-600">{{ Str::limit($post->body, 120) }}</p>

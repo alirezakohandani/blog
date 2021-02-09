@@ -50,4 +50,10 @@ class Post extends Model
     {
         return $this->hasMany(Visit::class);
     }
+
+    // if_category_exists
+    public function getIfCategoryExistsAttribute()
+    {
+        return $this->Categories()->first() ? $this->Categories()->first()->category : 'no category';
+    }
 }
