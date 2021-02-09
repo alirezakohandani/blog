@@ -56,4 +56,11 @@ class Post extends Model
     {
         return $this->Categories()->first() ? $this->Categories()->first()->category : 'no category';
     }
+
+    public function getImageUrlAttribute()
+    {
+        return $this->image == null 
+        ? asset(config('post.imgName')) 
+        : asset('/storage/' . $this->image->url);
+    }
 }
