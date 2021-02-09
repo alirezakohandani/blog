@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\SendSms;
 use App\Services\NotificationInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -32,14 +33,7 @@ class NotificationController extends Controller
         $request->validate([
             'text' => ['required', 'max:256'],
         ]);
-            
-         $response = $this->notify->send();
-      
-        if(json_decode($response->getBody())->IsSuccessful === false)
-        {
-            return redirect()->back()->with('dontSendSms', true);
-        }
-
+        $this->notify->send();
         return redirect()->back()->with('sendSms', true);
     }
 

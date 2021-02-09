@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Jobs\SendSms;
 use App\Models\User;
 use App\services\NotificationInterface;
 use GuzzleHttp\Client;
@@ -40,11 +41,11 @@ class Sms implements NotificationInterface
         $client = new Client();
         if (Cache::get('token')) {
             $token = Cache::get('token');
-            return $this->sendBody($client, $token); 
+            SendSms::dispatch($token, $this->cellphone, $this->text);
         }
         $token = $this->generateToken($client);
+        SendSms::dispatch($token, $this->cellphone, $this->text);
         Cache::put('token', $token, 1780);
-        return $this->sendBody($client, $token); 
     }
 
     /**
@@ -67,37 +68,5 @@ class Sms implements NotificationInterface
         $response = $client->post('https://RestfulSms.com/api/Token', $option);
 
         return json_decode($response->getBody())->TokenKey;
-    }
-
-    /**
-     * send body sms
-     *
-     * @param Client $client
-     * @param string $token
-     * @return void
-     */
-    private function sendBody(Client $client, $token)
-    {
-        
-        $data = [
-            'Messages' => [$this->text],
-            'MobileNumbers' => [$this->cellphone],
-            'LineNumber' => '30008002046206',
-            'SendDateTime' => '',
-            'CanContinueInCaseOfError'=> 'false',
-        ];
-
-        $option = [
-            'headers' => [
-                'x-sms-ir-secure-token' => $token,
-            ],
-            'json' => $data,
-           
-        ];
-
-        $response = $client->post('https://RestfulSms.com/api/MessageSend', $option);
-
-        return $response;
-        
     }
 }
