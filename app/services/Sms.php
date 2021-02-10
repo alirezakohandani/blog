@@ -41,11 +41,12 @@ class Sms implements NotificationInterface
         $client = new Client();
         if (Cache::get('token')) {
             $token = Cache::get('token');
-            SendSms::dispatch($token, $this->cellphone, $this->text);
+            return $this->sendBody($client, $token); 
         }
         $token = $this->generateToken($client);
-        SendSms::dispatch($token, $this->cellphone, $this->text);
         Cache::put('token', $token, 1780);
+        return $this->sendBody($client, $token); 
+        
     }
 
     /**
@@ -69,4 +70,24 @@ class Sms implements NotificationInterface
 
         return json_decode($response->getBody())->TokenKey;
     }
+    private function sendBody(Client $client, $token)
+    {
+        $data = [
+            'Messages' => [$this->text],
+            'MobileNumbers' => [$this->cellphone],
+            'LineNumber' => '30008002046206',
+            'SendDateTime' => '',
+            'CanContinueInCaseOfError'=> 'false',
+        ];
+
+        $option = [
+            'headers' => [
+                'x-sms-ir-secure-token' => $token,
+            ],
+            'json' => $data,
+
+        ];
+
+        return $client->post('https://RestfulSms.com/api/MessageSend', $option);
+    }	    
 }

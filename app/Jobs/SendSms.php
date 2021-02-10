@@ -2,7 +2,8 @@
 
 namespace App\Jobs;
 
-
+use App\Services\NotificationInterface;
+use App\Services\Sms;
 use GuzzleHttp\Client;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
@@ -16,19 +17,15 @@ class SendSms implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    private $token;
-    private $cellphone;
-    private $text;
+    private $notify;
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($token, $cellphone, $text)
+    public function __construct()
     {
-        $this->token = $token;
-        $this->cellphone = $cellphone;
-        $this->text = $text;
+        $this->notify = app(NotificationInterface::class);
     }
 
     /**
@@ -38,24 +35,7 @@ class SendSms implements ShouldQueue
      */
     public function handle()
     {
-        $client = new Client();
-        $data = [
-            'Messages' => [$this->text],
-            'MobileNumbers' => [$this->cellphone],
-            'LineNumber' => '30008002046206',
-            'SendDateTime' => '',
-            'CanContinueInCaseOfError'=> 'false',
-        ];
-
-        $option = [
-            'headers' => [
-                'x-sms-ir-secure-token' => $this->token,
-            ],
-            'json' => $data,
-        ];
-
-        $client->post('https://RestfulSms.com/api/MessageSend', $option);
-
+        $this->notify->send();
     }
 
 }
