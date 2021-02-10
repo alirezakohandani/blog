@@ -10,8 +10,7 @@ use Illuminate\Support\Facades\Cache;
 
 class NotificationController extends Controller
 {
-    private $notify;
-
+    
     public function __construct()
     {
         $this->notify = app(NotificationInterface::class);
@@ -33,7 +32,7 @@ class NotificationController extends Controller
         $request->validate([
             'text' => ['required', 'max:256'],
         ]);
-        $this->notify->send();
+        SendSms::dispatch();
         return redirect()->back()->with('sendSms', true);
     }
 
