@@ -4,7 +4,7 @@
 <form action="{{ route('admin.notification.send.sms') }}" class="flex flex-col space-y-8" method="post" enctype="multipart/form-data">
     @csrf
     <div>
-      <h3 class="text-2xl font-semibold">Post</h3>
+      <h3 class="text-2xl font-semibold">SMS</h3>
       <hr>
     </div>
     <label class="text-xl ">Users</label>
