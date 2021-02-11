@@ -9,4 +9,6 @@ Route::group(['as' => 'admin.', 'middleware' => 'auth'], function() {
     Route::post('send/sms', [App\Http\Controllers\Admin\NotificationsController::class, 'sendSms'])->name('notification.send.sms');
 
     Route::get('send/email', [App\Http\Controllers\Admin\NotificationsController::class, 'showEmailForm'])->name('notification.show.form.email');
+    Route::post('send/email', [App\Http\Controllers\Admin\NotificationsController::class, 'sendEmail'])->name('notification.send.email');
+
 });

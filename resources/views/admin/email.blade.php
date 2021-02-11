@@ -1,7 +1,7 @@
 @extends('admin.admin')
 
 @section('content')
-<form action="" class="flex flex-col space-y-8" method="post" enctype="multipart/form-data">
+<form action="{{ route('admin.notification.send.email') }}" class="flex flex-col space-y-8" method="post" enctype="multipart/form-data">
     @csrf
     <div>
       <h3 class="text-2xl font-semibold">Email</h3>
@@ -14,7 +14,7 @@
         @endforeach
     </select>
     <label class="text-xl ">type of email</label>
-    <select name="user">
+    <select name="typeOfEmail">
         <option value="WellcomeMail">wellcome email</option>
         <option value="ForgetMail">forget email</option>
     </select>
