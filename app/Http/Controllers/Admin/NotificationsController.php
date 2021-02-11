@@ -35,4 +35,9 @@ class NotificationsController extends Controller
         return redirect()->back()->with('sendSms', true);
     }
 
+    public function showEmailForm()
+    {
+        return view('admin.email');
+    }
+
 }   
