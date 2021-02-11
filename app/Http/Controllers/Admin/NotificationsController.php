@@ -15,7 +15,7 @@ class NotificationsController extends Controller
         $this->notify = app(Sms::class);
     }
 
-    public function show()
+    public function showSmsFrom()
     {
         return view('admin.sms');
     }
