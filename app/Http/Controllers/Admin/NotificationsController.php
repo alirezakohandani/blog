@@ -4,11 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Jobs\SendSms;
-use App\Services\Notification\NotificationInterface;
 use App\Services\Notification\Sms;
 use Illuminate\Http\Request;
 
-class NotificationController extends Controller
+class NotificationsController extends Controller
 {
     
     public function __construct()
