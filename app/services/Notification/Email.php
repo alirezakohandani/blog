@@ -32,7 +32,11 @@ class Email implements NotificationInterface
         $this->mailable = $request->mailable;
         
     }
-
+    /**
+     * send email
+     *
+     * @return void
+     */
     public function send()
     {
         Mail::to($this->email)->send(new $this->mailable);
