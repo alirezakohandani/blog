@@ -7,7 +7,7 @@ use App\Models\Post;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
 {
@@ -28,9 +28,10 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        
+    
+    try {
         $this->validateForm($request);
-
+        DB::beginTransaction();
         $post = new Post();
         $post->user_id = Auth::id();
         $post->title =  $request->title;
@@ -60,17 +61,21 @@ class PostController extends Controller
         ]);
 
         foreach($request->tags as $name) 
-    {
-        Tag::create([
-            'name' => $name,
-        ]
-        );
+         {
+            Tag::create([
+                'name' => $name,
+            ]);
+            $post->tags()->attach(Tag::where('name', $name)->first()->id); 
+         }
 
-      $post->tags()->attach(Tag::where('name', $name)->first()->id); 
-    }
-
+        DB::commit();
         return redirect()->back();
 
+    } catch (\Exception $e) {
+        DB::rollBack();
+        throw $e;
+    }    
+        
     }
 
     private function uploadImage($request)
