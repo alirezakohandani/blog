@@ -2,7 +2,7 @@
 
 namespace App\Jobs;
 
-use App\Services\Notification\NotificationInterface;
+use App\Services\Notification\Sms;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -22,7 +22,7 @@ class SendSms implements ShouldQueue
      */
     public function __construct()
     {
-        $this->notify = app(NotificationInterface::class);
+        $this->notify = app(Sms::class);
     }
 
     /**
