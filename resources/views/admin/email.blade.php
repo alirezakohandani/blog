@@ -14,7 +14,7 @@
         @endforeach
     </select>
     <label class="text-xl ">type of email</label>
-    <select name="typeOfEmail">
+    <select name="mailable">
         <option value="WellcomeMail">wellcome email</option>
         <option value="ForgetMail">forget email</option>
     </select>

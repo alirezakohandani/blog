@@ -2,6 +2,7 @@
 
 namespace App\Services\Notification;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
@@ -28,7 +29,7 @@ class Email implements NotificationInterface
      */
     public function __construct(Request $request)
     {
-        $this->email = $request->email;
+        $this->email = User::where('id', $request->user)->first()->email;
         $this->mailable = $request->mailable;
         
     }
@@ -39,6 +40,7 @@ class Email implements NotificationInterface
      */
     public function send()
     {
-        Mail::to($this->email)->send(new $this->mailable);
+        $mailable = 'App\Mail\\' . $this->mailable;
+        Mail::to($this->email)->send(new $mailable);
     }
 }

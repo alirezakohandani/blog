@@ -56,7 +56,7 @@ class NotificationsController extends Controller
     {
         $request->validate([
             'email' => ['email', 'exists:users'],
-            'typeOfEmail' => ['required' ,'string']
+            'mailable' => ['required' ,'string']
         ]);
 
         $email->send();
