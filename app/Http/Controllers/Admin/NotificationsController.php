@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Jobs\SendSms;
+use App\Rules\mailable;
 use App\Services\Notification\Email;
 use App\Services\Notification\Sms;
 use Illuminate\Http\Request;
@@ -56,7 +57,7 @@ class NotificationsController extends Controller
     {
         $request->validate([
             'email' => ['email', 'exists:users'],
-            'mailable' => ['required' ,'string']
+            'mailable' => ['required' ,'string', new mailable($request)]
         ]);
 
         $email->send();
