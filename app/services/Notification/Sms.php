@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Notification;
 
-use App\Jobs\SendSms;
 use App\Models\User;
-use App\services\NotificationInterface;
+use App\Services\Notification\NotificationInterface;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;

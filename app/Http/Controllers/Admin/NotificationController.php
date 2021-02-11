@@ -4,9 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Jobs\SendSms;
-use App\Services\NotificationInterface;
+use App\Services\Notification\NotificationInterface;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
 
 class NotificationController extends Controller
 {
