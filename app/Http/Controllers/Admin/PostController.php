@@ -44,7 +44,12 @@ class PostController extends Controller
         $post->file = ($post->post_type !== 'article') 
                         ? $request->file->getClientOriginalName() 
                         : null;
-
+        foreach($request->user()->roles as $role) 
+        {
+           $post->status = ($role->pivot->role_id == 1) 
+                            ? 'published' 
+                            : 'no-signed';
+        }                
         if ($request->post_type !== 'article') {
             $this->uploadImage($request, $post);
          }               
