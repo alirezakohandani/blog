@@ -39,3 +39,9 @@
     The post has already been signed
 </div>
 @endif
+
+@if (session('dontAllowSign'))
+<div style="color: green">
+    reject the post to author
+</div>
+@endif
