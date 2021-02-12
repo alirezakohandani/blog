@@ -29,7 +29,7 @@ class AuthServiceProvider extends ServiceProvider
 
         Gate::define('create-post', function(User $user) {
            foreach ($user->roles as $role) {
-               if($role->pivot->role_id == 2)
+               if($role->pivot->role_id == 1 || $role->pivot->role_id == 2)
                {
                 return true;
                }
