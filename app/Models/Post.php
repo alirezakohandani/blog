@@ -9,6 +9,10 @@ class Post extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'status'
+    ];
+    
     /**
      * Get the user that owns the post.
      */

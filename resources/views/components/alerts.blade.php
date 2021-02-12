@@ -27,3 +27,15 @@
     successfully send
 </div>
 @endif
+
+@if (session('signed'))
+<div style="color: green">
+    post signed
+</div>
+@endif
+
+@if (session('dontAllowSign'))
+<div style="color: red">
+    The post has already been signed
+</div>
+@endif

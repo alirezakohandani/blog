@@ -8,6 +8,7 @@
                 Posts
             </h1>
         </div>
+        @include('components.alerts')
         <div class="px-3 py-4 flex justify-center">
             <table class="w-full text-md bg-white shadow-md rounded mb-4">
                 <tbody>
@@ -24,7 +25,13 @@
                         <td class="p-3 px-5">{{ $post->status }}</td>
                         <td class="p-3 px-5">{{ $post->created_at }}</td>
                         <td class="p-3 px-5">{{ App\Models\User::where('id', $post->user_id)->first()->name }}</td>
-                        <td class="p-3 px-5 flex justify-end"><button type="button" class="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Save</button><button type="button" class="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Delete</button></td>
+                        <td class="p-3 px-5 flex justify-end">
+                            <form action="{{ route('admin.access.controller.sign') }}" method="POST">
+                                @csrf
+                            <input type="hidden" name="post_id" value="{{ $post->id }}">
+                            <button type="submit" class="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">sign</button>
+                            </form>
+                            <button type="button" class="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Delete</button></td>
                     </tr> 
                     @endforeach                
                 </tbody>
