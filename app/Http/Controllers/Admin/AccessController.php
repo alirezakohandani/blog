@@ -27,11 +27,19 @@ class AccessController extends Controller
      */
     public function sign(Request $request)
     {
-        $post = Post::where('id', $request->post_id)->first();
-        if ($post->status == 'published') {
-            return redirect()->back()->with('dontAllowSign', true);
-        }
-        $post->update(['status' => 'published']);
+        Post::where('id', $request->post_id)->update(['status' => 'published']);
         return redirect()->back()->with('signed', true);
+    }
+
+    /**
+     * reject the post to the author
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function reject(Request $request)
+    {
+        Post::where('id', $request->post_id)->update(['status' => 'draft']);
+        return redirect()->back()->with('rejected', true);
     }
 }
