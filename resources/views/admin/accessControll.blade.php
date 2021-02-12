@@ -29,12 +29,12 @@
                             <form action="{{ route('admin.access.controller.sign') }}" method="POST">
                                 @csrf
                             <input type="hidden" name="post_id" value="{{ $post->id }}">
-                            <button type="submit" class="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">sign</button>
+                            <button type="submit" class="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline" {{ $post->status_is_published }}>sign</button>
                             </form>
                             <form action="{{ route('admin.access.controller.reject') }}" method="POST">
                                 @csrf
                                 <input type="hidden" name="post_id" value="{{ $post->id }}">
-                            <button type="submit" class="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">reject</button>
+                            <button type="submit" class="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline" {{ $post->status_is_published }} {{ $post->status_is_draft }}>reject</button>
                             </form>
                         </td>
                     </tr> 

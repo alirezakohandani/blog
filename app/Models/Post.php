@@ -67,4 +67,24 @@ class Post extends Model
         ? asset(config('post.imgName')) 
         : asset('/storage/' . $this->image->url);
     }
+
+    /**
+     * accessor for published posts
+     */
+    public function getStatusIsPublishedAttribute()
+    {
+        return $this->status == 'published' 
+                ? 'disabled'
+                : '';
+    }
+
+    /**
+     * accessor for draft posts
+     */
+    public function getStatusIsDraftAttribute()
+    {
+        return $this->status == 'draft'
+                ? 'disabled'
+                : '';
+    }
 }
