@@ -25,7 +25,7 @@ class LoginController extends Controller
         $this->validateForm($request);
         
         if ($this->attemptLogin($request)) {
-            event(new Login($request));
+            //event(new Login($request));
             return redirect()->intended();
         }
         

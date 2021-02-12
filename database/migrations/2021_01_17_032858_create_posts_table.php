@@ -23,7 +23,7 @@ class CreatePostsTable extends Migration
             $table->enum('post_type', ['article', 'podcast', 'video']);
             $table->string('file')->nullable();
             $table->boolean('is_vip')->default(false);
-            $table->enum('status', ['published', 'draft', 'no-signed'])->default('draft');
+            $table->enum('status', ['published', 'draft', 'no-signed'])->default('no-signed');
             $table->timestamps();
         });
     }
