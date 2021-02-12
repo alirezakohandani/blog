@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Events\Login;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,9 +23,9 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $this->validateForm($request);
-
+        
         if ($this->attemptLogin($request)) {
-
+            event(new Login($request));
             return redirect()->intended();
         }
         

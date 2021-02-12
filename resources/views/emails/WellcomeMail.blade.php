@@ -1,7 +1,7 @@
 @component('mail::message')
 # Wellcome Email
 
-The wellcome email
+dear {{ $name }}
 
 Thanks,<br>
 {{ config('app.name') }}

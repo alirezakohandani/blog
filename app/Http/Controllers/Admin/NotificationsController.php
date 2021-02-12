@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\SendEmail;
 use App\Jobs\SendSms;
 use App\Rules\mailable;
 use App\Services\Notification\Email;
@@ -53,14 +54,14 @@ class NotificationsController extends Controller
      * @param Request $request
      * @return void
      */
-    public function sendEmail(Request $request, Email $email)
+    public function sendEmail(Request $request)
     {
         $request->validate([
             'email' => ['email', 'exists:users'],
             'mailable' => ['required' ,'string', new mailable($request)]
         ]);
 
-        $email->send();
+        SendEmail::dispatch();
         return redirect()->back();
     }
 
