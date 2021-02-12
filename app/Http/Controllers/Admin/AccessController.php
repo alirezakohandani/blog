@@ -44,6 +44,6 @@ class AccessController extends Controller
     public function reject(Request $request)
     {
         Post::where('id', $request->post_id)->update(['status' => 'draft']);
-        return redirect()->back()->with('rejected');
+        return redirect()->back()->with('rejected', true);
     }
 }

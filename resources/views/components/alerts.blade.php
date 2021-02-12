@@ -40,7 +40,7 @@
 </div>
 @endif
 
-@if (session('dontAllowSign'))
+@if (session('rejected'))
 <div style="color: green">
     reject the post to author
 </div>
