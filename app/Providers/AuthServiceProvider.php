@@ -35,5 +35,14 @@ class AuthServiceProvider extends ServiceProvider
                }
            }
         });
+
+        Gate::define('access-controll', function(User $user) {
+            foreach ($user->roles as $role) {
+                if($role->pivot->role_id == 1)
+                {
+                 return true;
+                }
+            }
+        });
     }
 }
