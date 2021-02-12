@@ -16,7 +16,7 @@
     <label class="text-xl ">type of email</label>
     <select name="mailable">
         <option value="WellcomeMail">wellcome email</option>
-        <option value="ForgetMail">forget email</option>
+        {{-- <option value="ForgetMail">forget email</option> --}}
     </select>
       @if ($errors)
           @foreach ($errors->all() as $error)

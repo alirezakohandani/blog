@@ -1,6 +1,7 @@
 @extends('admin.admin')
 
 @section('content')
+@if (\Gate::allows('create-post'))
 <form action="{{ route('admin.store.form') }}" class="flex flex-col space-y-8" method="post" enctype="multipart/form-data">
     @csrf
     <div>
@@ -71,4 +72,7 @@
     </label>
     <button name="submit" class="uppercase px-8 py-2 bg-blue-600 text-blue-50 max-w-max shadow-sm hover:shadow-lg">submit</button>
   </form>
+  @else
+     you dont author 
+  @endif
 @endsection

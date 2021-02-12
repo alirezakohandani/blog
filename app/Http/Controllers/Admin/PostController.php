@@ -30,6 +30,8 @@ class PostController extends Controller
     {
     
     try {
+        if (\Gate::allows('create-post')) {
+          
         $this->validateForm($request);
         DB::beginTransaction();
         $post = new Post();
@@ -69,7 +71,9 @@ class PostController extends Controller
          }
 
         DB::commit();
+    }
         return redirect()->back();
+       
 
     } catch (\Exception $e) {
         DB::rollBack();
