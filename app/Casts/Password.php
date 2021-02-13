@@ -2,25 +2,11 @@
 
 namespace App\Casts;
 
-use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
+use Illuminate\Contracts\Database\Eloquent\CastsInboundAttributes;
 use Illuminate\Support\Facades\Hash;
 
-class Password implements CastsAttributes
+class Password implements CastsInboundAttributes
 {
-    /**
-     * Cast the given value.
-     *
-     * @param  \Illuminate\Database\Eloquent\Model  $model
-     * @param  string  $key
-     * @param  mixed  $value
-     * @param  array  $attributes
-     * @return mixed
-     */
-    public function get($model, $key, $value, $attributes)
-    {
-        return $value;
-    }
-
     /**
      * Hash password when registering.
      *
