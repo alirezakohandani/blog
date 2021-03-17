@@ -9,12 +9,22 @@ use Illuminate\Http\Request;
 class AccessController extends Controller
 {
     /**
-     * show posts list
+     * Show posts list
      *
      * @return void
      */
     public function show()
     {
+        $postQuery = Post::query();
+        if (request()->has('search')) {
+            $searchQuery = request()->get('search');
+            $posts = Post::where('title', 'LIKE', '%' . $searchQuery . '%')
+                            ->orWhere('body', 'LIKE', '%' . $searchQuery . '%')
+                            ->get();
+                                    
+            return view('admin.accessControll', compact('posts'));                    
+        }
+
         $posts = Post::all();
         return view('admin.accessControll', compact('posts'));
     }
