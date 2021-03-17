@@ -8,7 +8,9 @@
                 Posts
             </h1>
         </div>
-        <x-search action="{{ route('admin.access.controller.list') }}"></x-search>
+        <x-search action="{{ route('admin.access.controller.list') }}">
+            <x-single-search-input name="search" value="search" placeholder="Search ..."></x-single-search-input>
+        </x-search>
         @include('components.alerts')
         <div class="px-3 py-4 flex justify-center">
             <table class="w-full text-md bg-white shadow-md rounded mb-4">
