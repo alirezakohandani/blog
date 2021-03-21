@@ -14,8 +14,9 @@ class Post extends Model
     protected $fillable = [
         'status'
     ];
-    
+
     public $searchableColumns = ['title', 'body'];
+    
     /**
      * Get the user that owns the post.
      */
