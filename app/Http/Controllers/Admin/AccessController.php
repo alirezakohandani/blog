@@ -15,17 +15,8 @@ class AccessController extends Controller
      */
     public function show()
     {
-        $postQuery = Post::query();
-        if (request()->has('search')) {
-            $searchQuery = request()->get('search');
-            $posts = Post::where('title', 'LIKE', '%' . $searchQuery . '%')
-                            ->orWhere('body', 'LIKE', '%' . $searchQuery . '%')
-                            ->get();
-                                    
-            return view('admin.accessControll', compact('posts'));                    
-        }
-
-        $posts = Post::all();
+        $postQuery = Post::singleSearch();
+        $posts = $postQuery->orderBy('id', 'desc')->get();
         return view('admin.accessControll', compact('posts'));
     }
 

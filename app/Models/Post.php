@@ -2,17 +2,20 @@
 
 namespace App\Models;
 
+use App\Traits\Searchable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
     use HasFactory;
+    use Searchable;
 
     protected $fillable = [
         'status'
     ];
     
+    public $searchableColumns = ['title', 'body'];
     /**
      * Get the user that owns the post.
      */
