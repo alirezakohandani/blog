@@ -3,13 +3,14 @@
 namespace App\Models;
 
 use App\Traits\Searchable;
+use App\Traits\Sortable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
     use HasFactory;
-    use Searchable;
+    use Searchable, Sortable;
 
     protected $fillable = [
         'status'
