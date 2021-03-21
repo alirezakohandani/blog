@@ -10,6 +10,7 @@
         </div>
         <x-search action="{{ route('admin.access.controller.list') }}">
             <x-single-search-input name="search" value="search" placeholder="Search ..."></x-single-search-input>
+            <x-sort-box :columns="['id', 'title']"></x-sort-box>
         </x-search>
         @include('components.alerts')
         <div class="px-3 py-4 flex justify-center">

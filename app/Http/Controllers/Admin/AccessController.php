@@ -16,7 +16,7 @@ class AccessController extends Controller
     public function show()
     {
         $postQuery = Post::singleSearch();
-        $posts = $postQuery->orderBy('id', 'desc')->get();
+        $posts = $postQuery->orderBy(request()->get('sort_by') ?? 'id', request()->get('direction') ?? 'desc')->get();
         return view('admin.accessControll', compact('posts'));
     }
 
